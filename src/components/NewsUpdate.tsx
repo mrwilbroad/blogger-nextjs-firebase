@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { Firebasedb } from "@/lib/Firebase";
 import { collection, getDocs, Timestamp } from "firebase/firestore";
 import { Table } from "react-bootstrap";
+import Link from "next/link";
 
 interface NewsI {
   title: string;
@@ -25,6 +26,11 @@ const NewsUpdate = () => {
 
   return (
     <div>
+      <section className="hstack justify-content-between mb-2">
+        <Link href={'/news/create'} className=" ms-auto">
+        <button type="button" className=" btn btn-primary">Create new Post</button>
+        </Link>
+      </section>
       <Table striped bordered responsive hover>
         <thead>
           <tr>
@@ -32,6 +38,9 @@ const NewsUpdate = () => {
             <th>Title</th>
             <th>Description</th>
             <th>created at</th>
+            <th className="text-center" colSpan={2}>
+              Action
+            </th>
           </tr>
         </thead>
         <tbody>
@@ -43,6 +52,14 @@ const NewsUpdate = () => {
                 <td>{news.title}</td>
                 <td>{news.description}</td>
                 <td>{news.created_at}</td>
+                <td>
+                  <button className="btn btn-danger">delete</button>
+                </td>
+                <td>
+                  <Link href={`/news/${news.title}`}>
+                    <button className="btn btn-danger">View</button>
+                  </Link>
+                </td>
               </tr>
             ))}
         </tbody>
